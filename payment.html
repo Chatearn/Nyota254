@@ -362,13 +362,17 @@ function payNow(){
         document.getElementById("fullName").value
     );
 
+    /*
+       Phone number is valid.
+       Keep the Continue button unchanged
+       and do not display the normalized
+       number or "Number Accepted".
+    */
+
+    message.textContent = "";
+
     btn.disabled = true;
 
-    btn.textContent =
-        "Number Accepted";
-
-    message.textContent =
-        "Phone number accepted: " + phone;
 }
 
 </script>
