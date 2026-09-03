@@ -238,6 +238,14 @@ M-PESA Phone Number
 <script>
 
 /* =====================================================
+   BACKEND
+===================================================== */
+
+const BACKEND_URL =
+    "https://nyota-254-backed-1.onrender.com";
+
+
+/* =====================================================
    APPLICANT
 ===================================================== */
 
@@ -309,10 +317,139 @@ function normalizePhone(phone){
 
 
 /* =====================================================
-   PHONE VALIDATION
+   CHECK PAYMENT STATUS
 ===================================================== */
 
-function payNow(){
+async function checkPaymentStatus(
+    reference,
+    btn,
+    message
+){
+
+    try{
+
+        const response =
+            await fetch(
+                BACKEND_URL +
+                "/api/payment/status?reference=" +
+                encodeURIComponent(reference)
+            );
+
+        const data =
+            await response.json();
+
+        console.log(
+            "PAYMENT STATUS:",
+            data
+        );
+
+        if(
+            data.status === "COMPLETED" ||
+            data.status === "SUCCESS" ||
+            data.status === "SUCCESSFUL"
+        ){
+
+            message.textContent =
+                "Payment successful.";
+
+            localStorage.setItem(
+                "paymentStatus",
+                data.status
+            );
+
+            localStorage.setItem(
+                "paymentReference",
+                reference
+            );
+
+            if(data.transactionId){
+
+                localStorage.setItem(
+                    "transactionId",
+                    data.transactionId
+                );
+
+            }
+
+            if(data.mpesaReceipt){
+
+                localStorage.setItem(
+                    "mpesaReceipt",
+                    data.mpesaReceipt
+                );
+
+            }
+
+            setTimeout(function(){
+
+                window.location.href =
+                    "delivery.html";
+
+            },1000);
+
+            return;
+        }
+
+        if(
+            data.status === "FAILED" ||
+            data.status === "CANCELLED" ||
+            data.status === "REJECTED"
+        ){
+
+            message.textContent =
+                "Payment was not completed. Please try again.";
+
+            btn.disabled = false;
+
+            btn.textContent =
+                "Continue";
+
+            return;
+        }
+
+        message.textContent =
+            "Waiting for M-PESA payment confirmation...";
+
+        setTimeout(function(){
+
+            checkPaymentStatus(
+                reference,
+                btn,
+                message
+            );
+
+        },3000);
+
+    }catch(error){
+
+        console.error(
+            "STATUS CHECK ERROR:",
+            error
+        );
+
+        message.textContent =
+            "Checking payment status...";
+
+        setTimeout(function(){
+
+            checkPaymentStatus(
+                reference,
+                btn,
+                message
+            );
+
+        },4000);
+
+    }
+
+}
+
+
+/* =====================================================
+   PAY NOW
+===================================================== */
+
+async function payNow(){
 
     const phoneInput =
         document.getElementById("phone");
@@ -362,16 +499,121 @@ function payNow(){
         document.getElementById("fullName").value
     );
 
-    /*
-       Phone number is valid.
-       Keep the Continue button unchanged
-       and do not display the normalized
-       number or "Number Accepted".
-    */
-
-    message.textContent = "";
-
     btn.disabled = true;
+
+    btn.textContent =
+        "Processing...";
+
+    message.textContent =
+        "Please check your phone and complete the M-PESA payment.";
+
+
+    try{
+
+        const response =
+            await fetch(
+                BACKEND_URL +
+                "/api/payment/stk-push",
+                {
+                    method:"POST",
+
+                    headers:{
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body:JSON.stringify({
+
+                        phone:phone,
+
+                        amount:processingFee,
+
+                        description:
+                            "Nyota processing fee"
+
+                    })
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        console.log(
+            "STK RESPONSE:",
+            data
+        );
+
+
+        if(!response.ok || !data.success){
+
+            throw new Error(
+                data.error ||
+                "Unable to initiate payment."
+            );
+
+        }
+
+
+        if(data.reference){
+
+            localStorage.setItem(
+                "paymentReference",
+                data.reference
+            );
+
+        }
+
+
+        if(data.transactionId){
+
+            localStorage.setItem(
+                "transactionId",
+                data.transactionId
+            );
+
+        }
+
+
+        message.textContent =
+            "M-PESA payment prompt sent. Please complete the payment.";
+
+
+        if(data.reference){
+
+            checkPaymentStatus(
+                data.reference,
+                btn,
+                message
+            );
+
+        }else{
+
+            throw new Error(
+                "Payment reference was not returned."
+            );
+
+        }
+
+
+    }catch(error){
+
+        console.error(
+            "PAYMENT ERROR:",
+            error
+        );
+
+        message.textContent =
+            error.message ||
+            "Unable to initiate payment. Please try again.";
+
+        btn.disabled = false;
+
+        btn.textContent =
+            "Continue";
+
+    }
 
 }
 
