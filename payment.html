@@ -1,14 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>NYOTA FUNDS</title>
-
-<style>
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>NYOTA FUNDS</title><style>
 
 *{
     box-sizing:border-box;
@@ -47,7 +38,6 @@ body{
     border:1px solid #000000;
 }
 
-/* PROCESSING FEE HEADING ONLY */
 h1{
     text-align:center;
     background:#000000;
@@ -175,68 +165,42 @@ button:disabled{
 
 }
 
-</style>
-
-</head>
-
-<body>
-
-<div class="container">
-
-<div class="card">
-
-<h1>Processing Fee</h1>
-
-<p>
+</style></head><body><div class="container"><div class="card"><h1>Processing Fee</h1><p>
 Welcome, <strong><span id="name"></span></strong>
-</p>
-
-<p>
+</p><p>
 To continue with your NYOTA Fund application,
 please complete the processing fee payment below.
-</p>
-
-<div class="amount" id="feeAmount">
+</p><div class="amount" id="feeAmount">
 Processing Fee: KSh 1
-</div>
-
-<label>
+</div><label>
 Full Name
-</label>
+</label><input
+type="text"
+id="fullName"
+readonly
 
-<input
-    type="text"
-    id="fullName"
-    readonly
->
+«»
 
 <label>
 M-PESA Phone Number
-</label>
+</label><input
+type="tel"
+id="phone"
+placeholder="07XXXXXXXX"
+autocomplete="tel"
 
-<input
-    type="tel"
-    id="phone"
-    placeholder="07XXXXXXXX"
-    autocomplete="tel"
->
+«»
 
 <button
-    type="button"
-    id="payBtn"
-    onclick="payNow()"
->
-    Pay Processing Fee
-</button>
+type="button"
+id="payBtn"
+onclick="payNow()"
 
-<p id="stkMessage"></p>
+«»
 
-</div>
+Pay Processing Fee
 
-</div>
-
-
-<script>
+</button><p id="stkMessage"></p></div></div><script>
 
 /* =====================================================
    NYOTA BACKEND
@@ -724,8 +688,4 @@ function checkPayment(reference){
 
 }
 
-</script>
-
-</body>
-
-</html>
+</script></body></html>
