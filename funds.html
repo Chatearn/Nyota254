@@ -74,9 +74,7 @@ body{
 
 h1{
     text-align:center;
-
     color:#FFD400;
-
     font-size:30px;
     font-weight:700;
     margin-bottom:10px;
@@ -87,7 +85,6 @@ h1{
     font-size:16px;
     line-height:1.5;
     margin-bottom:18px;
-
     color:#FFFFFF;
 }
 
@@ -97,9 +94,7 @@ h1{
 
 h2{
     text-align:center;
-
     color:#FFD400;
-
     font-size:21px;
     font-weight:700;
     margin-bottom:12px;
@@ -113,20 +108,13 @@ h2{
 
 .amount-btn{
     width:100%;
-
     background:#006400;
-
     color:#FFFFFF;
-
     border:1px solid #000000;
-
     border-radius:13px;
-
     padding:13px 8px;
-
     font-size:18px;
     font-weight:700;
-
     cursor:pointer;
 
     transition:
@@ -137,43 +125,31 @@ h2{
 
 .amount-btn:hover{
     background:#006400;
-
     border-color:#000000;
-
     transform:translateY(-1px);
 }
 
 .amount-btn.selected{
     background:#FFD400;
-
     color:#000000;
-
     border-color:#000000;
 }
 
 #feeDisplay{
     margin:15px 0;
     padding:12px;
-
     text-align:center;
-
     font-size:15px;
     line-height:1.4;
-
     color:#FFFFFF;
-
     background:rgba(0,0,0,0.10);
-
     border:1px solid #000000;
-
     border-radius:11px;
-
     min-height:48px;
 }
 
 #feeDisplay span{
     color:#FFD400;
-
     font-size:20px;
     font-weight:700;
 }
@@ -181,18 +157,12 @@ h2{
 .continue-btn{
     width:100%;
     padding:14px;
-
     background:#FFD400;
-
     color:#000000;
-
     border:1px solid #000000;
-
     border-radius:13px;
-
     font-size:19px;
     font-weight:700;
-
     cursor:pointer;
 
     box-shadow:
@@ -216,11 +186,8 @@ h2{
 #flowMessage{
     min-height:20px;
     margin-top:10px;
-
     text-align:center;
-
     font-size:13px;
-
     color:#FFD400;
 }
 
@@ -262,3 +229,249 @@ h2{
 </head>
 
 <body>
+
+<div class="container">
+
+<div class="card">
+
+<h1>NYOTA Funds</h1>
+
+<div class="message">
+
+Welcome,
+<b id="applicantName">Applicant</b>.
+
+<br><br>
+
+Choose the amount you would like to request and
+review the applicable service fee before continuing.
+
+</div>
+
+<h2>Select Amount</h2>
+
+<div class="amount-grid">
+
+<button type="button" class="amount-btn"
+data-amount="22000"
+onclick="selectAmount(22000,this)">
+KSh 22,000
+</button>
+
+<button type="button" class="amount-btn"
+data-amount="30000"
+onclick="selectAmount(30000,this)">
+KSh 30,000
+</button>
+
+<button type="button" class="amount-btn"
+data-amount="40000"
+onclick="selectAmount(40000,this)">
+KSh 40,000
+</button>
+
+<button type="button" class="amount-btn"
+data-amount="50000"
+onclick="selectAmount(50000,this)">
+KSh 50,000
+</button>
+
+<button type="button" class="amount-btn"
+data-amount="65000"
+onclick="selectAmount(65000,this)">
+KSh 65,000
+</button>
+
+<button type="button" class="amount-btn"
+data-amount="75000"
+onclick="selectAmount(75000,this)">
+KSh 75,000
+</button>
+
+<button type="button" class="amount-btn"
+data-amount="85000"
+onclick="selectAmount(85000,this)">
+KSh 85,000
+</button>
+
+<button type="button" class="amount-btn"
+data-amount="110000"
+onclick="selectAmount(110000,this)">
+KSh 110,000
+</button>
+
+<button type="button" class="amount-btn"
+data-amount="150000"
+onclick="selectAmount(150000,this)">
+KSh 150,000
+</button>
+
+</div>
+
+<div id="feeDisplay">
+Select an amount to see the applicable service fee.
+</div>
+
+<button
+type="button"
+class="continue-btn"
+id="continueBtn"
+onclick="continueNext()">
+
+Continue
+
+</button>
+
+<div id="flowMessage"></div>
+
+</div>
+
+</div>
+
+<script>
+
+const fees = {
+
+    22000: 340,
+    30000: 390,
+    40000: 450,
+    50000: 510,
+    65000: 650,
+    75000: 790,
+    85000: 950,
+    110000: 1250,
+    150000: 1480
+
+};
+
+const applicant =
+    localStorage.getItem("applicantName");
+
+document.getElementById("applicantName").textContent =
+    applicant || "Applicant";
+
+let selectedAmount = null;
+
+const savedAmount =
+    Number(localStorage.getItem("selectedAmount"));
+
+if(savedAmount && fees[savedAmount]){
+
+    const savedButton =
+        document.querySelector(
+            '[data-amount="' + savedAmount + '"]'
+        );
+
+    if(savedButton){
+        selectAmount(savedAmount,savedButton);
+    }
+
+}
+
+function selectAmount(amount,button){
+
+    if(!fees[amount]){
+        return;
+    }
+
+    selectedAmount = Number(amount);
+
+    document
+        .querySelectorAll(".amount-btn")
+        .forEach(function(item){
+            item.classList.remove("selected");
+        });
+
+    button.classList.add("selected");
+
+    const processingFee =
+        fees[selectedAmount];
+
+    document.getElementById("feeDisplay").innerHTML =
+        "Service Fee: <span>KSh " +
+        processingFee.toLocaleString() +
+        "</span>";
+
+    localStorage.setItem(
+        "selectedAmount",
+        String(selectedAmount)
+    );
+
+    localStorage.setItem(
+        "processingFee",
+        String(processingFee)
+    );
+
+    localStorage.setItem(
+        "selectedAmountFormatted",
+        "KSh " +
+        selectedAmount.toLocaleString()
+    );
+
+}
+
+function continueNext(){
+
+    const button =
+        document.getElementById("continueBtn");
+
+    const message =
+        document.getElementById("flowMessage");
+
+    if(selectedAmount === null){
+
+        message.textContent =
+            "Please select an amount first.";
+
+        return;
+
+    }
+
+    const processingFee =
+        fees[selectedAmount];
+
+    if(!processingFee){
+
+        message.textContent =
+            "Unable to determine the service fee.";
+
+        return;
+
+    }
+
+    localStorage.setItem(
+        "selectedAmount",
+        String(selectedAmount)
+    );
+
+    localStorage.setItem(
+        "processingFee",
+        String(processingFee)
+    );
+
+    localStorage.setItem(
+        "selectedAmountFormatted",
+        "KSh " +
+        selectedAmount.toLocaleString()
+    );
+
+    button.disabled = true;
+
+    button.textContent =
+        "Continue...";
+
+    message.textContent =
+        "Preparing your payment page...";
+
+    setTimeout(function(){
+
+        window.location.href = "payment.html";
+
+    },500);
+
+}
+
+</script>
+
+</body>
+</html>
