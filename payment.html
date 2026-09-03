@@ -197,7 +197,7 @@ please complete the processing fee payment below.
 </p>
 
 <div class="amount" id="feeAmount">
-Processing Fee: KSh 350
+Processing Fee: KSh 1
 </div>
 
 <label>
@@ -243,7 +243,7 @@ M-PESA Phone Number
 ===================================================== */
 
 const BACKEND_URL =
-    "https://nyota-backed1.onrender.com";
+    "https://nyota-254-backed-1.onrender.com";
 
 
 /* =====================================================
@@ -268,7 +268,7 @@ const storedFee =
     localStorage.getItem("processingFee");
 
 const processingFee =
-    Number(storedFee || 350);
+    Number(storedFee || 1);
 
 if(
     !Number.isFinite(processingFee) ||
