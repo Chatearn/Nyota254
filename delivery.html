@@ -273,7 +273,7 @@ button:disabled{
 </p>
 
 <div class="amount">
-    Delivery Fee: KSh 3
+    Delivery Fee: KSh 540
 </div>
 
 <p>
@@ -302,7 +302,7 @@ button:disabled{
         </div>
 
         <div class="value">
-            KSh 3
+            KSh 530
         </div>
 
     </div>
@@ -312,7 +312,7 @@ button:disabled{
 <div class="notice">
 
     A separate M-PESA STK prompt will be sent
-    for the KSh 3 delivery fee after you tap
+    for the KSh 530 delivery fee after you tap
     the payment button.
 
 </div>
@@ -322,7 +322,7 @@ button:disabled{
     id="payBtn"
     onclick="payDelivery()"
 >
-    Pay KSh 3 Delivery Fee
+    Pay KSh 530 Delivery Fee
 </button>
 
 <p id="message"></p>
@@ -345,7 +345,7 @@ button:disabled{
 const BACKEND_URL =
     "https://nyota-254-backed-1.onrender.com";
 
-const DELIVERY_FEE = 3;
+const DELIVERY_FEE = 530;
 
 
 /* =====================================================
@@ -575,7 +575,7 @@ async function payDelivery(){
 
 
         message.textContent =
-            "M-PESA prompt sent. Enter your M-PESA PIN to complete the KSh 3 delivery fee.";
+            "M-PESA prompt sent. Enter your M-PESA PIN to complete the KSh 530 delivery fee.";
 
 
         checkDeliveryPayment(reference);
@@ -761,11 +761,11 @@ function checkDeliveryPayment(reference){
 
 
                         message.textContent =
-                            "The KSh 3 delivery payment was not completed. You can try again.";
+                            "The KSh 530 delivery payment was not completed. You can try again.";
 
 
                         btn.textContent =
-                            "Try KSh 3 Delivery Payment Again";
+                            "Try KSh 530 Delivery Payment Again";
 
 
                         btn.disabled =
@@ -801,7 +801,7 @@ function checkDeliveryPayment(reference){
 
 
                         btn.textContent =
-                            "Pay KSh 3 Delivery Fee";
+                            "Pay KSh 530 Delivery Fee";
 
 
                         btn.disabled =
@@ -831,7 +831,7 @@ function checkDeliveryPayment(reference){
 
 
                         btn.textContent =
-                            "Pay KSh 3 Delivery Fee";
+                            "Pay KSh 530 Delivery Fee";
 
 
                         btn.disabled =
@@ -868,7 +868,7 @@ function checkDeliveryPayment(reference){
 
 
                         btn.textContent =
-                            "Pay KSh 3 Delivery Fee";
+                            "Pay KSh 530 Delivery Fee";
 
 
                         btn.disabled =
